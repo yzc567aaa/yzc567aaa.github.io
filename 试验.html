@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幸运抽奖</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Microsoft Yahei",sans-serif}
+body{
+  color:#fff;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background: url("https://ts1.tc.mm.bing.net/th/id/R-C.07879db99076475a57fdd964387a094c?rik=bAZLhL8JVgsPVQ&riu=http%3a%2f%2fpic.qianye88.com%2fpic%2f38afd9af117441238cc6cfcf86d07e59.jpg&ehk=CIgJ84FYYZa%2bVYZqssKJzZz5TKKzjGe%2fqDy5QfRNISg%3d&risl=&pid=ImgRaw&r=0") no-repeat center center;
+  background-size: cover;
+}
+.box{background:#fff;color:#333;padding:40px 60px;border-radius:20px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+h1{margin-bottom:24px}
+#name{font-size:42px;height:60px;margin:20px 0;font-weight:bold}
+button{padding:14px 40px;font-size:20px;border:none;border-radius:12px;background:#ff4757;color:#fff;cursor:pointer;margin:0 8px}
+button:disabled{background:#aaa;cursor:not-allowed}
+.info{margin-top:16px;color:#666}
+#getBtn{
+  background:#2385bb;
+  margin-top:20px;
+}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>一百万个地狱火等你来抽</h1>
+  <div id="name">准备抽奖</div>
+  <button id="startBtn">开始抽奖</button>
+  <button id="stopBtn" disabled>停止</button>
+  <div class="info">完成问卷获取抽奖机会</div>
+  <button id="getBtn">重新填写问卷</button>
+</div>
+<script>
+let list = ["地狱火","凤求凰","神秘打野点","648","爱与正义","千年之狐"];
+let used = [];
+let timer = null;
+
+const nameDom = document.getElementById("name");
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+const getBtn = document.getElementById("getBtn");
+
+const surveyLink = "https://v.wjx.cn/vm/rfPo7EW.aspx";
+getBtn.onclick = ()=>{
+  window.open(surveyLink,"_blank");
+}
+
+startBtn.onclick = ()=>{
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
+  timer = setInterval(()=>{
+    let temp = list[Math.floor(Math.random()*list.length)];
+    nameDom.innerText = temp;
+  },80)
+}
+
+stopBtn.onclick = ()=>{
+  clearInterval(timer);
+  stopBtn.disabled = true;
+  startBtn.disabled = false;
+  // 停止后固定显示谢谢惠顾
+  nameDom.innerText = "😔 差一点就中了（其实咋抽都是这个结果）";
+}
+</script>
+</body>
+</html>
